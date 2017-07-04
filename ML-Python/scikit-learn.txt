@@ -1,0 +1,80 @@
+MACHINE LEARNING TERMINOLOGY
+supervised learning (machine learning)
+unsupervised learning (deep learning)
+
+1. Each row is known as an OBSERVATION or SAMPLE, EXAMPLE, INSTANCE, RECORD
+2. Each column is "FEATURE", ATTRIBUTE, INPUT, COVARIANT
+3. Target represents what we are going to predict, "RESPONSE", LABEL. (it prints integers 
+representing the species of each observation)
+4. Types of supervised learning:
+	1. Classification: is supervised learning in which the response is categorical,
+		meaning that the values are in a finite un-ordered set
+	2. Regression: is supervised learning in which the response is ordered and continous
+		meaning that for every input you have an output that isnt part of a set, 
+		example, bodyweight classification. like an injective function.
+5. Requirements for working with scikit-learn:
+	1. Features and response are separate objects
+		iris.data and iris.target, fulfill this condition since they are stored separately
+	2. Features and response should be numeric
+	3. Features and response should be NumPy arrays
+	4. Features and response shpuld have specific shapes
+		Feature object should have 2 dimensions, 
+			1st dimension(represented by rows) - is the number of observations
+			2nd dimension(represented by cols) - is the number of features
+		Response object should have 1 dimension, and this dimension should have the same
+		magnitude as the first dimension as the feature object;
+			meaning: there should be one response corresponding to each observation (injective)
+		*notation*  X = iris.data - X capitalized because it is a matrix
+					y = iris.target - y is lowercase because it is a vector
+					
+
+K-nearest neighbors (KNN) classification
+	1. Pick a value for K
+	2. Search for the K observations in the training data that are "nearest" to the
+	measurements of the unknown iris
+	3. Use the most popular response value from the K nearest neighbors as the predicted
+	response value for the unknown iris
+	
+Scikit-learn 4-step modeling pattern
+	1. Import the class that you plan to use
+		from sklearn.neighbors import KNeighborsClassifier
+	2. "Instantiate" the "estimator"
+		1. "estimator" is scikit-learn's term for model
+		2. "instantiate" means "make an instance of"
+		knn = KNeighborsClassifier(n_neighbors=1) n_neighbors = 1 means that knn = 1
+		will look for 1st nearest neighbor
+	3. Fit model with data (aka "model training")
+		1. Model is learning the relationship between X and y
+		2. Occurs in-place
+	4. Predict the response for a new observation
+		1. New observations are called "out-of-sample" data
+		2. Uses the information it learned during the model training process
+		3. Returns a NumPy array
+		4. Can predict for multiple observations at once
+	
+	***Code for procedure***
+	from sklearn.datasets import load_iris
+	iris = load_iris()
+	type(iris)
+	X = iris.data
+	y = iris.target
+	from sklearn.neighbors import KNeighborsClassifier
+	knn = KNeighborsClassifier(n_neighbors=1)
+	knn.fit(X,y)
+	knn.predict([3,5,4,2])
+	***another case***
+	X_new = [[3,5,4,2],[5,4,3,2]]
+	knn.predict(X_new)
+	***another case***
+	knn = KNeighborsClassifier(n_neighbors=5)
+	knn.fit(X,y)
+	knn.predict(X_new)
+
+Using another model for Classification problem
+	from sklearn.linear_model import LogisticRegression
+	logreg = LogisticRegression() //instantiate with default values
+	logreg.fit(X,y)
+	logreg.predict(X_new)
+**Note: we dont know which model gives us the correct values, because we dont know the correct
+values ourselves**
+	
