@@ -109,3 +109,4 @@ def run_game():
     print('Choice 1: {}, Choice 0: {}'.format(choices.count(1)/len(choices),
             choices.count(0)/len(choices)))
 run_game()
+#inspired by sentdex
